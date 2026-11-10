@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.local
+dist/
+coverage/
+npm-debug.log
+pnpm-debug.log
+yarn-debug.log
+yarn-error.log
+.DS_Store
+.idea/
+.vscode/
+*.log
+*.tsbuildinfo
+# OS generated files
+Thumbs.db
+
