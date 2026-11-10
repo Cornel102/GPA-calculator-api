@@ -40,6 +40,44 @@ export class ScoreController {
     }
   }
 
+  // List all score records
+  static async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const records = await scoreRepo.findAll();
+      res.json(records);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  // Get a specific score record by ID
+  static async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const record = await scoreRepo.findById(id);
+      if (!record) {
+        return res.status(404).json({ message: 'Score record not found.' });
+      }
+      res.json(record);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  // Delete a score record by ID
+  static async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const record = await scoreRepo.delete(id);
+      if (!record) {
+        return res.status(404).json({ message: 'Score record not found.' });
+      }
+      res.json({ message: 'Score record deleted successfully.' });
+    } catch (err) {
+      next(err);
+    }
+  }
+
   // Transcript with GPA
   static async transcript(req: Request, res: Response, next: NextFunction) {
     try {

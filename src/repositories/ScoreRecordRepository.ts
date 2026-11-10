@@ -20,5 +20,17 @@ export class ScoreRecordRepository {
   async findByStudentId(studentId: string) {
     return this.model.find({ studentId }).populate('subjectId').exec();
   }
+
+  async findAll() {
+    return this.model.find().populate('studentId').populate('subjectId').exec();
+  }
+
+  async findById(id: string) {
+    return this.model.findById(id).populate('studentId').populate('subjectId').exec();
+  }
+
+  async delete(id: string) {
+    return this.model.findByIdAndDelete(id).exec();
+  }
 }
 

@@ -19,5 +19,13 @@ export class StudentRepository {
   async findById(id: string) {
     return this.model.findById(id).exec();
   }
+
+  async update(id: string, data: Partial<IStudent>) {
+    return this.model.findByIdAndUpdate(id, data, { new: true, runValidators: true }).exec();
+  }
+
+  async delete(id: string) {
+    return this.model.findByIdAndDelete(id).exec();
+  }
 }
 

@@ -40,5 +40,32 @@ export class StudentController {
       next(err);
     }
   }
+
+  static async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { name, email, matricNumber, department } = req.body;
+      const student = await studentRepo.update(id, { name, email, matricNumber, department });
+      if (!student) {
+        return res.status(404).json({ message: 'Student not found.' });
+      }
+      res.json(student);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const student = await studentRepo.delete(id);
+      if (!student) {
+        return res.status(404).json({ message: 'Student not found.' });
+      }
+      res.json({ message: 'Student deleted successfully.' });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 

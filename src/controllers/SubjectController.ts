@@ -27,5 +27,45 @@ export class SubjectController {
       next(err);
     }
   }
+
+  static async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const subject = await subjectRepo.findById(id);
+      if (!subject) {
+        return res.status(404).json({ message: 'Subject not found.' });
+      }
+      res.json(subject);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { code, title, creditUnits } = req.body;
+      const subject = await subjectRepo.update(id, { code, title, creditUnits });
+      if (!subject) {
+        return res.status(404).json({ message: 'Subject not found.' });
+      }
+      res.json(subject);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const subject = await subjectRepo.delete(id);
+      if (!subject) {
+        return res.status(404).json({ message: 'Subject not found.' });
+      }
+      res.json({ message: 'Subject deleted successfully.' });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
